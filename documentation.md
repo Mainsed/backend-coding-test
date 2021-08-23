@@ -1,0 +1,1 @@
+The goal of this project is to store and provide information about riders. There is information about start and end latitude, rider and driver name, and driver vehicle
