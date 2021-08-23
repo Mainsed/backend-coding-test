@@ -10,6 +10,10 @@
     "test": "mocha tests",
     "start": "node index.js"
   },
+  "pre-push": [
+    "test",
+    "start"
+  ],
   "keywords": [
     "Xendit"
   ],
@@ -21,11 +25,12 @@
     "express": "^4.16.4"
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
+    "git-pre-push": "0.0.5",
+    "mocha": "^6.1.4",
     "nyc": "^15.1.0",
     "pre-push": "^0.1.1",
-    "winston": "^3.3.3",
-    "eslint": "^7.32.0",
-    "mocha": "^6.1.4",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "winston": "^3.3.3"
   }
 }
