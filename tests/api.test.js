@@ -30,31 +30,31 @@ describe("API tests", () => {
     });
   });
 
-  describe("POST /rides", () => {
-    it("should return health", (done) => {
-      request(app)
-        .post("/rides")
-        .expect("Content-Type", /text/)
-        .expect(200, done);
-    });
-  });
+  // describe("POST /rides", () => {
+  //   it("should return health", (done) => {
+  //     request(app)
+  //       .post("/rides")
+  //       .expect("Content-Type", /text/)
+  //       .expect(200, done);
+  //   });
+  // });
 
-  describe("GET /rides", () => {
-    it("should return health", (done) => {
-      request(app)
-        .get("/rides")
-        .expect("Content-Type", /text/)
-        .expect(200, done);
-    });
-  });
+  // describe("GET /rides", () => {
+  //   it("should return health", (done) => {
+  //     request(app)
+  //       .get("/rides")
+  //       .expect("Content-Type", /text/)
+  //       .expect(200, done);
+  //   });
+  // });
 
-  describe("GET /rides/:id", () => {
-    it("should return health", (done) => {
-      request(app)
-        .get("/rides/1")
-        .expect("Content-Type", /text/)
-        .expect(200, done);
-    });
-  });
+  // describe("GET /rides/:id", () => {
+  //   it("should return health", (done) => {
+  //     request(app)
+  //       .get("/rides/1")
+  //       .expect("Content-Type", /text/)
+  //       .expect(200, done);
+  //   });
+  // });
 
 });
