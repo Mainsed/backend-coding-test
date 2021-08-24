@@ -7,6 +7,7 @@ const db = new sqlite3.Database(":memory:");
 
 const app = require("../src/app")(db);
 const buildSchemas = require("../src/schemas");
+let service;
 
 describe("API tests", () => {
   before((done) => {
@@ -19,6 +20,7 @@ describe("API tests", () => {
 
       done();
     });
+    service = require('../src/app.service')(db);
   });
 
   describe("GET /health", () => {
@@ -91,7 +93,7 @@ describe("API tests", () => {
           else if (res.body.error_code) done();
         });
     });
-    
+
     it("should return error with end latitude  while creating a ride", (done) => {
       request(app)
         .post("/rides")
@@ -106,7 +108,7 @@ describe("API tests", () => {
           else if (res.body.error_code) done();
         });
     });
-    
+
     it("should return error with driver name while creating a ride", (done) => {
       request(app)
         .post("/rides")
@@ -152,7 +154,7 @@ describe("API tests", () => {
       done()
     });
 
-    it("should return ride with id", (done) => {
+    it("should return error while finding ride with incorrect id", (done) => {
       request(app)
         .get("/rides/asd")
         .expect("Content-Type", /json/)
@@ -165,5 +167,4 @@ describe("API tests", () => {
       done()
     });
   });
-
 });

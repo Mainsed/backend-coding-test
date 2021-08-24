@@ -1,4 +1,4 @@
-# Xendit Coding Exercise
+<!-- # Xendit Coding Exercise
 
 The goal of these exercises are to assess your proficiency in software engineering that is related to the daily work that we do at Xendit. Please follow the instructions below to complete the assessment.
 
@@ -61,7 +61,7 @@ Please implement pagination to retrieve pages of the resource `rides`.
     1. Code changes
     2. Tests
     3. Documentation
-2. Merge the pull request
+2. Merge the pull request -->
 
 ### Refactoring
 
