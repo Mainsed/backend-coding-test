@@ -14,11 +14,13 @@ Routes:
       Created entry from db.
 
   2. GET '/rides'
+    Parameters query:
+      page, size
     Returns:
-      All entries from db.
+      Entries from db with count equal size param. Pagination included and specify with page param.
 
   3. GET '/rides/:id'
-    Parameters query:
+    Parameters:
       id
     Returns:
       Entry from db with specified id.
