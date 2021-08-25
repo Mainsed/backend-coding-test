@@ -63,7 +63,7 @@ Please implement pagination to retrieve pages of the resource `rides`.
     3. Documentation
 2. Merge the pull request -->
 
-### Refactoring
+<!-- ### Refactoring
 
 Please implement the following refactors of the code:
 
@@ -75,7 +75,7 @@ Please implement the following refactors of the code:
 
 1. A pull request against `master` of your fork for each of the refactors above with:
     1. Code changes
-    2. Tests
+    2. Tests -->
 
 ### Security
 

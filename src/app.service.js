@@ -1,4 +1,15 @@
-module.exports = (db) => {
+const injectionCheck = (params) => {
+  if (params.length === 0)
+    throw new Error('Params should be not empty array')
+  params.forEach((param) => {
+    if (param.toString().includes('or') || param.toString().includes('OR') ||
+      param.toString().includes('and') || param.toString().includes('AND'))
+      throw new Error('Found SQL Injection')
+  })
+  return true
+}
+
+module.exports = (db, logger) => {
   return {
     createRider: async (req, res) => {
       const startLatitude = Number(req.body.start_lat);
@@ -46,12 +57,14 @@ module.exports = (db) => {
 
       const values = [req.body.start_lat, req.body.start_long, req.body.end_lat, req.body.end_long, req.body.rider_name, req.body.driver_name, req.body.driver_vehicle];
       try {
-        await db.run("INSERT INTO Rides(startLat, startLong, endLat, endLong, riderName, driverName, driverVehicle) VALUES (?, ?, ?, ?, ?, ?, ?)", values, async function (err) {
-          await db.get("SELECT * FROM Rides WHERE rideID = ?", this.lastID, (_, rows) => {
-            res.send(rows)
+        if (injectionCheck(values))
+          await db.run("INSERT INTO Rides(startLat, startLong, endLat, endLong, riderName, driverName, driverVehicle) VALUES (?, ?, ?, ?, ?, ?, ?)", values, async function (err) {
+            await db.get("SELECT * FROM Rides WHERE rideID = ?", this.lastID, (_, rows) => {
+              res.send(rows)
+            })
           })
-        })
       } catch (err) {
+        logger.error(err.message)
         return res.send({
           error_code: "SERVER_ERROR",
           message: "Unknown error"
@@ -62,16 +75,18 @@ module.exports = (db) => {
     getRiders: async (req, res) => {
       try {
         const { page = 1, size = 5 } = req.query;
-        await db.all("SELECT * FROM Rides LIMIT ?,?", [(page - 1) * size, size], (_, rows) => {
-          if (rows.length === 0) {
-            return res.send({
-              error_code: "RIDES_NOT_FOUND_ERROR",
-              message: "Could not find any rides"
-            });
-          }
-          res.send(rows);
-        })
+        if (injectionCheck([page, size]))
+          await db.all("SELECT * FROM Rides LIMIT ?,?", [(page - 1) * size, size], (_, rows) => {
+            if (rows.length === 0) {
+              return res.send({
+                error_code: "RIDES_NOT_FOUND_ERROR",
+                message: "Could not find any rides"
+              });
+            }
+            res.send(rows);
+          })
       } catch (err) {
+        logger.error(err.message)
         return res.send({
           error_code: "SERVER_ERROR",
           message: "Unknown error"
@@ -81,16 +96,18 @@ module.exports = (db) => {
 
     getRiderById: async (req, res) => {
       try {
-        await db.all(`SELECT * FROM Rides WHERE rideID="${req.params.id}"`, (_, rows) => {
-          if (rows.length === 0) {
-            return res.send({
-              error_code: "RIDES_NOT_FOUND_ERROR",
-              message: "Could not find any rides"
-            });
-          }
-          res.send(rows);
-        })
+        if (injectionCheck([req.params.id]))
+          await db.all(`SELECT * FROM Rides WHERE rideID="${req.params.id}"`, (_, rows) => {
+            if (rows.length === 0) {
+              return res.send({
+                error_code: "RIDES_NOT_FOUND_ERROR",
+                message: "Could not find any rides"
+              });
+            }
+            res.send(rows);
+          })
       } catch (err) {
+        logger.error(err.message)
         return res.send({
           error_code: "SERVER_ERROR",
           message: "Unknown error"
