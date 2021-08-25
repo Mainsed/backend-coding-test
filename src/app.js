@@ -18,7 +18,7 @@ const logger = winston.createLogger({
 });
 
 module.exports = (db) => {
-  const service = require('./app.service')(db);
+  const service = require('./app.service')(db, logger);
   app.get("/health", (req, res) => res.send("Healthy"));
   app.post("/rides", jsonParser, service.createRider);
   app.get("/rides", service.getRiders);
