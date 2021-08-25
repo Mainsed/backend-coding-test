@@ -9,10 +9,10 @@
   "scripts": {
     "test": "mocha tests",
     "start": "node index.js",
-    "coverage": "nyc npm run test"
+    "coverage": "nyc npm run test",
+    "test:load": ""
   },
   "pre-push": [
-    "test",
     "coverage"
   ],
   "keywords": [
@@ -26,6 +26,8 @@
     "express": "^4.16.4"
   },
   "devDependencies": {
+    "artillery": "^2.0.0-dev9",
+    "artillery-pro": "^2.3.0-2",
     "eslint": "^7.32.0",
     "git-pre-push": "0.0.5",
     "mocha": "^6.1.4",
