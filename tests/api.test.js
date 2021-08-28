@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 "use strict";
 
 const request = require("supertest");
@@ -7,7 +8,6 @@ const db = new sqlite3.Database(":memory:");
 
 const app = require("../src/app")(db);
 const buildSchemas = require("../src/schemas");
-let service;
 
 describe("API tests", () => {
   before((done) => {
@@ -20,7 +20,7 @@ describe("API tests", () => {
 
       done();
     });
-    service = require('../src/app.service')(db);
+    service = require("../src/app.service")(db);
   });
 
   describe("GET /health", () => {
@@ -41,7 +41,7 @@ describe("API tests", () => {
           "rider_name": "rider", "driver_name": "driver", "driver_vehicle": "veh"
         })
         .expect(200)
-        .expect('Content-Type', /json/)
+        .expect("Content-Type", /json/)
         .end(function (err, res) {
           if (err) done(err);
           else if (res.body.error_code) done(res.body);
@@ -57,7 +57,7 @@ describe("API tests", () => {
           "rider_name": "rider", "driver_name": "driver", "driver_vehicle": "veh"
         })
         .expect(200)
-        .expect('Content-Type', /json/)
+        .expect("Content-Type", /json/)
         .end(function (err, res) {
           if (err) done(err);
           else if (res.body.error_code) done();
@@ -72,7 +72,7 @@ describe("API tests", () => {
           "rider_name": "rider", "driver_name": "driver", "driver_vehicle": ""
         })
         .expect(200)
-        .expect('Content-Type', /json/)
+        .expect("Content-Type", /json/)
         .end(function (err, res) {
           if (err) done(err);
           else if (res.body.error_code) done();
@@ -87,7 +87,7 @@ describe("API tests", () => {
           "rider_name": "", "driver_name": "driver", "driver_vehicle": "veh"
         })
         .expect(200)
-        .expect('Content-Type', /json/)
+        .expect("Content-Type", /json/)
         .end(function (err, res) {
           if (err) done(err);
           else if (res.body.error_code) done();
@@ -102,7 +102,7 @@ describe("API tests", () => {
           "rider_name": "rider", "driver_name": "driver", "driver_vehicle": "veh"
         })
         .expect(200)
-        .expect('Content-Type', /json/)
+        .expect("Content-Type", /json/)
         .end(function (err, res) {
           if (err) done(err);
           else if (res.body.error_code) done();
@@ -117,7 +117,7 @@ describe("API tests", () => {
           "rider_name": "rider", "driver_name": "", "driver_vehicle": "veh"
         })
         .expect(200)
-        .expect('Content-Type', /json/)
+        .expect("Content-Type", /json/)
         .end(function (err, res) {
           if (err) done(err);
           else if (res.body.error_code) done();
@@ -132,7 +132,7 @@ describe("API tests", () => {
           "rider_name": "rider", "driver_name": "", "driver_vehicle": "veh"
         })
         .expect(200)
-        .expect('Content-Type', /json/)
+        .expect("Content-Type", /json/)
         .end(function (err, res) {
           if (err) done(err);
           else if (res.body.error_code) done();
@@ -147,11 +147,11 @@ describe("API tests", () => {
         .expect("Content-Type", /json/)
         .expect(200)
         .end((err, res) => {
-          const body = res.body
-          if (err) done(err)
-          else if (body.error_code && body.error_code !== 'RIDES_NOT_FOUND_ERROR') done(body);
-        })
-      done()
+          const body = res.body;
+          if (err) done(err);
+          else if (body.error_code && body.error_code !== "RIDES_NOT_FOUND_ERROR") done(body);
+        });
+      done();
     });
   });
 
@@ -162,11 +162,11 @@ describe("API tests", () => {
         .expect("Content-Type", /json/)
         .expect(200)
         .end((err, res) => {
-          const body = res.body[0]
-          if (err) done(err)
+          const body = res.body[0];
+          if (err) done(err);
           else if (body.error_code) done(body);
-        })
-      done()
+        });
+      done();
     });
 
     it("should return error while finding ride with incorrect id", (done) => {
@@ -175,11 +175,11 @@ describe("API tests", () => {
         .expect("Content-Type", /json/)
         .expect(200)
         .end((err, res) => {
-          const body = res.body
-          if (err) done(err)
-          else if (body.rideID) done('Found unexpected ride');
-        })
-      done()
+          const body = res.body;
+          if (err) done(err);
+          else if (body.rideID) done("Found unexpected ride");
+        });
+      done();
     });
 
     it("should return SQL Injection error while finding ride", (done) => {
@@ -188,11 +188,11 @@ describe("API tests", () => {
         .expect("Content-Type", /json/)
         .expect(200)
         .end((err, res) => {
-          const body = res.body
-          if (err) done(err)
-          else if (body.rideID) done('Found unexpected ride');
-        })
-      done()
+          const body = res.body;
+          if (err) done(err);
+          else if (body.rideID) done("Found unexpected ride");
+        });
+      done();
     });
   });
 });

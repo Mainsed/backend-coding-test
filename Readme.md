@@ -1,4 +1,32 @@
-<!-- # Xendit Coding Exercise
+# Documentation
+The goal of this project is to store and provide information about rides. There is information about start and end latitude/longtitude, rider and driver name, and driver vehicle.
+
+## Routes:
+  1. POST '/rides'
+      1. Parameters body:
+          - startLatitude, startLongitude, endLatitude, endLongitude, riderName, redriverName, driverVehicle.
+        - They are needed to create db entry.
+      2. Validation:
+          - startLatitude and longitude must be between -90 - 90 and -180 to 180 degrees respectively.
+          - endLatitude endLongitude must be between -90 - 90 and -180 to 180 degrees respectively.
+          - riderName must be a non empty string.
+          - driverName must be a non empty string.
+          - driverVehicle must be a non empty string.
+      3. Returns:
+          - Created entry from db.
+  2. GET '/rides'
+      1. Parameters query:
+          - page, size
+      2. Returns:
+          - Entries from db with count equal size param. Pagination included and specify with page param.
+  3. GET '/rides/:id'
+      1. Parameters:
+          - id
+      2. Returns:
+          - Entry from db with specified id.
+
+
+# Xendit Coding Exercise
 
 The goal of these exercises are to assess your proficiency in software engineering that is related to the daily work that we do at Xendit. Please follow the instructions below to complete the assessment.
 
@@ -61,9 +89,9 @@ Please implement pagination to retrieve pages of the resource `rides`.
     1. Code changes
     2. Tests
     3. Documentation
-2. Merge the pull request -->
+2. Merge the pull request
 
-<!-- ### Refactoring
+### Refactoring
 
 Please implement the following refactors of the code:
 
@@ -75,7 +103,7 @@ Please implement the following refactors of the code:
 
 1. A pull request against `master` of your fork for each of the refactors above with:
     1. Code changes
-    2. Tests -->
+    2. Tests
 
 ### Security
 

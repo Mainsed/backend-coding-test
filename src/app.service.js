@@ -1,13 +1,14 @@
+/* eslint-disable no-unused-vars */
 const injectionCheck = (params) => {
   if (params.length === 0)
-    throw new Error('Params should be not empty array')
+    throw new Error("Params should be not empty array");
   params.forEach((param) => {
-    if (param.toString().includes('or') || param.toString().includes('OR') ||
-      param.toString().includes('and') || param.toString().includes('AND'))
-      throw new Error('Found SQL Injection')
-  })
-  return true
-}
+    if (param.toString().includes("or") || param.toString().includes("OR") ||
+      param.toString().includes("and") || param.toString().includes("AND"))
+      throw new Error("Found SQL Injection");
+  });
+  return true;
+};
 
 module.exports = (db, logger) => {
   return {
@@ -60,11 +61,11 @@ module.exports = (db, logger) => {
         if (injectionCheck(values))
           await db.run("INSERT INTO Rides(startLat, startLong, endLat, endLong, riderName, driverName, driverVehicle) VALUES (?, ?, ?, ?, ?, ?, ?)", values, async function (err) {
             await db.get("SELECT * FROM Rides WHERE rideID = ?", this.lastID, (_, rows) => {
-              res.send(rows)
-            })
-          })
+              res.send(rows);
+            });
+          });
       } catch (err) {
-        logger.error(err.message)
+        logger.error(err.message);
         return res.send({
           error_code: "SERVER_ERROR",
           message: "Unknown error"
@@ -84,9 +85,9 @@ module.exports = (db, logger) => {
               });
             }
             res.send(rows);
-          })
+          });
       } catch (err) {
-        logger.error(err.message)
+        logger.error(err.message);
         return res.send({
           error_code: "SERVER_ERROR",
           message: "Unknown error"
@@ -105,14 +106,14 @@ module.exports = (db, logger) => {
               });
             }
             res.send(rows);
-          })
+          });
       } catch (err) {
-        logger.error(err.message)
+        logger.error(err.message);
         return res.send({
           error_code: "SERVER_ERROR",
           message: "Unknown error"
         });
       }
     }
-  }
-}
+  };
+};
